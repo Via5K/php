@@ -10,6 +10,5 @@ include_once: Includes external file, but once only. Even if it is included mult
 
 Require: Makes it mandatory to include the file and if the file is not found throws an error. 
 Two methods: require, require_once require(); 
-require_once: requires a file once only even if it is called multiple times. 
-
+require_once: requires a file once only even if it is called multiple times.
 

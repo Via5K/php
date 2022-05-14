@@ -4,6 +4,15 @@
 * Now edit environment variables. And in **PATH** variable update the location of the PHP folder.
 * To confirm everything is done smoothly. Type - ```php -v``` And this should return you the version if everything was fine. Otherwise you messed up in between.
 
+## Running a server
+
+first thing first you need to create a folder or directory wherein you want to start your server. This is for your own ease.
+* Create a directory ex: ```Php Codes```
+* Create a directory inside ```Php Codes``` named ```www``` Follow the naming correctly.
+* Inside ```www``` directory keep all your php code.
+* Now to see your program running, first start the server. ```php -S localhost:3000```
+* Now goto your browser and type ```localhost:3000/www/phpFilename.php```
+* **NOTE:** that here phpFilename.php will be replaced by the name of your file.
 ## Echo
 
 ```echo("Hello World");``` OR ```echo "Hello World";```
@@ -220,5 +229,44 @@ echo add(2,3);
 ```
 
 ## If - Else - Nested If - Statements
+If else statements are used as conditionals. We can say that if you are mark then ay 20$. Else Don't pay. So this is a simple case of if-else statement.
 
-2:20:00
+Similarly we can use the condition ofr 3 person. i.e if you are mark then pay 20$. Else if you are jone pay 10$. else don't pay anything.
+
+Example code snippit of if-else and elseif can be seen below.
+**Snippit**
+
+```
+<?php
+    $isFail = true;
+    if($isFail){
+        echo "You have failed the exam";
+        echo "<br>";
+    }
+    else{
+        echo "You have passed the exam but failed life";
+    }
+    
+    // $isMale = "a";
+    $isMale = "a";
+    $isTall = false;
+    if($isMale!=true || $isMale!=false && $isTall!=false || $isTall!=true ){
+        echo "Ahh!! I don't know what you are and what's your height.<br>";
+    }
+    else if($isMale && $isTall){
+        echo "You are Tall and Male <br>";
+    }
+    else if($isMale && !$isTall){
+        echo "You are Male but small <br>";
+    }
+    else if(!$isMale && $isTall){
+        echo "You are a woman and You are Tall <br>";
+    }
+    else{
+        echo "You are a woman and You are small <br>";
+    }
+?>
+```
+
+
+## 
