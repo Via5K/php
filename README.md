@@ -269,4 +269,87 @@ Example code snippit of if-else and elseif can be seen below.
 ```
 
 
-## 
+## Switch
+Switch statements are similar to the if-else statemetns.
+Sytanx of switch statement:
+
+```
+switch($roll){
+    case 1:
+        echo"You attendance is 10<br>";
+        break;
+    case 2:
+        echo"You attendance is 20<br>";
+        break;
+    case 3:
+        echo"You attendance is 8<br>";
+        break;
+    case 4:
+        echo"You attendance is 15<br>";
+        break;
+    case 5:
+        echo"You attendance is 23<br>";
+        break;
+    case 6:
+        echo"You attendance is 14<br>";
+        break;
+    case 7:
+        echo"You attendance is 40<br>";
+        break;
+    default:
+        echo "Your attendace is Not recorded<br>";
+}
+```
+
+## LOOPING 
+Looping is a way of iterating through the set of values or variables multiple times.
+There are 3 types of loops:
+* While
+* For
+* do-while
+
+### While
+The syntax for while loop is:
+
+```
+$i = 1;
+while($i<100){
+    echo "Hi i printed $i time <br>";
+    $i+=1;
+}
+```
+So, this would print the statement 99 times. 
+
+While condition basically means that continue to iterate through the loop unless, a certain condition is met.
+
+### For
+ The syntax for ```for``` loop is simple. It is created with 3 @params.
+ * initializing variable
+ * condition
+ * increment
+
+ ```
+for($i=0;$i<99;$i++){
+    echo "I am Roll Number $i <br>";
+}
+ ```
+
+ ## do-while
+ do while loops atleast one time.
+ The syntax of PHP do-while code is:
+
+```
+$i = 0;
+do{
+    echo "$i$ are with me<br>";
+    $i++;
+} while($i<=100);
+
+```
+
+## Project (Beginner Level)- Test Knowledge
+* Greeter (Greets you with you name and welcomes you)
+* MadLips
+* Calculator
+
+##
