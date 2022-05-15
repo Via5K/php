@@ -3,6 +3,7 @@
 * While installing keep a note where are you installing the PHP (for windows while extraction Note the directory where you are saving)
 * Now edit environment variables. And in **PATH** variable update the location of the PHP folder.
 * To confirm everything is done smoothly. Type - ```php -v``` And this should return you the version if everything was fine. Otherwise you messed up in between.
+* All the code snippits and examples are also written in seperate php files inside ```www``` folder. You can checkout according to the names they have been assigned.
 
 ## Running a server
 
@@ -352,4 +353,309 @@ do{
 * MadLips
 * Calculator
 
-##
+## Include in PHP
+So now, let us assume that we have 100+ pages with us. And, we have a common thing in it. ```HEADER``` & ```FOOTER```. 
+So what we will do is include that in our file(main.php). First thing first, we will create a ``header.php`` file. And ```footer.php``` and add the contents to thsoe files.
+Now, as we have created them we need to add them in every page that we have by using keyword ```include```.
+Ex: ```include "header.php"```
+
+**Addition**
+You can add HTML files also. You just need to specify the name.extension
+
+
+**Note:** That PHP executes on what is written first executed first, so you will have to include the file in relevent position. If your file needs to be added in middle then, you will include that in middle and so on...
+
+**Code snippit**
+```
+<?php
+    echo "<br><br><br>";
+    include "header.php";
+    echo "<h2>";
+    echo $_POST["data"];
+    echo "</h2>";
+    include "footer.php";
+?>
+```
+
+**Include & Require Two methods of include.**
+
+**Include:** Includes external file into php. It throws an warning and continues to the next if it doesn't finds the file. include(def.php); 
+**include_once:** Includes external file, but once only. Even if it is included multiple times. include_once(def.php); 
+
+**Require:** Makes it mandatory to include the file and if the file is not found throws an error. 
+Two methods: require, require_once require(); 
+**require_once:** requires a file once only even if it is called multiple times.
+
+### Edit the variables & use functions of other php file.
+
+So let us suppose we have a php file which contains 2 functions and a second file that contains author information. So, we know that this is the repetition code. So we use include but how can we change its variables? 
+So it is easy you just have to include the file adn then write the same variables and change their values. 
+
+We have created 2 seperate files named: ```authorDetail.php``` and ```author.php```
+
+* In ```author.php```
+
+```
+<?php
+function info($authorName, $authorArea, $totalPosts){
+    echo "<br>";
+    echo "author name : ";
+    echo $authorName;
+    echo "<br>";
+    echo "author posts: ";
+    echo $totalPosts;
+    echo "<br>";
+    echo "author area: ";
+    echo $authorArea;
+    echo "<br>";
+}
+?>
+```
+
+* In ```authorDetail.php```
+
+```
+<?php
+function blogOwnerInfo($blogOwner){
+    echo "$blogOwner is the Owner of the Blog";
+}
+?>
+```
+
+And now we have our main file named: ```include.php``` we have:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Include</title>
+</head>
+<body>
+    <form action="include.php" method="POST">
+    Enter about Via5k: <input type="text" name="data"> <br> <br>
+    <input type="submit"> <br>
+</form>
+
+<?php
+    echo "<br><br><br>";
+    include "header.php";
+    echo "<h2>";
+    echo $_POST["data"];
+    echo "</h2>";
+    include "footer.php";
+
+    // Edit variable of other files and use fucntions of other php files.
+    echo "<br><br><br><br><br><br>";
+    echo "New web <br>";
+    $authorName = "Neeraj";
+    $authorArea = "Technology"; 
+    $totalPosts = 10;
+    include "authorDetail.php";
+    include "author.php";
+    $blogOwner = "VIASK";
+    blogOwnerInfo ($blogOwner);
+    info($authorName, $authorArea, $totalPosts);
+?>
+</body>
+</html>
+```
+
+## Classes and Objects
+
+Class is a specification for custom data type.
+So for example, we want to create a datatype for Book.
+So, we don't have a Book datatype so we will create one using class.
+
+Class is created using ```class ClassName {}```
+**Example Class:**
+
+```
+    class Book{
+        var $Name;
+        var $Author;
+        var $Price;
+        var $Year;
+        var $Pages;
+        var $Available;
+    }
+```
+**Note** how we have written var in front of the variables. This is done for the visibility. Var acts somewhat similar to public.
+
+
+So now to create an object of this class. We can do something like this: ```$Book1 = new Book;``` This would create an object of Book Class.
+
+And to assign Values, we can do it by using ```->```
+Example: ```$book1->Price = 200``` and similarly it can be accessed using ```$book1->Price```
+
+**Code Snippit:**
+
+```
+<?php
+    class Book{
+        var $Name;
+        var $Author;
+        var $Price;
+        var $Year;
+        var $Pages;
+        var $Available;
+    }
+    $book1 = new Book;
+
+    $book1->Name = "Programming PHP";
+    $book1->Author = "Github";
+    $book1->Price = 200;
+    $book1->Year= 2022;
+    $book1->Pages = 300;
+    $book1->Available = "Yes";
+
+    echo $book1->Name;
+    echo "<br>";
+    echo $book1->Author;
+    echo "<br>";
+    echo $book1->Price;
+    echo "<br>";
+    echo $book1->Year;
+    echo "<br>";
+    echo $book1->Pages;
+    echo "<br>";
+    echo $book1->Available;
+    echo "<br>";
+?>
+```
+
+### Constructors
+Special function that is called upon the class. Note that the name of the constructor should be ```function __construct(){}```
+This function is called automatically when the instance of the class is created.
+
+
+**Code Snippit:**
+
+```
+function __construct($name, $author, $price, $year, $pages,$available){
+    $this->Name= $name;
+    $this->Author= $author;
+    $this->Price= $price;
+    $this->Year= $year;
+    $this->Pages= $pages;
+    $this->Available= $available;
+}
+```
+So this keyword is used when we have same names. Here we have different as i used capital first letter in class and as @param used small first letter.
+
+### Object function
+Object function is something that can be defined inside a class and then that class can use that object function.
+So we call the object functions like this: ```objectname->functionName()```
+
+Done with passing parameter so the value is being checked by this keyword. That is: this->Price means that for the current object check the price and if it is less than or equal to 100 then return true.
+
+```
+function isAffordable (){ //using this keyword
+    if($this->Price<=100) return true;
+    else return false;
+}
+```
+
+**Calling the object function**
+```$book1->display($book1);```
+```$book1->isAffordable()```
+
+
+Now, Done by passing the object in the object function.
+
+This here means we are passing which object are we working on and then accessing its information.
+```
+function display($book1){
+    echo $book1->Name;
+    echo "<br>";
+    echo $book1->Author;
+    echo "<br>";
+    echo $book1->Price;
+    echo "<br>";
+    echo $book1->Year;
+    echo "<br>";
+    echo $book1->Pages;
+    echo "<br>";
+    echo $book1->Available;
+    echo "<br>";
+}
+```
+
+### Vsibility
+* public: can be accessed out of class.
+* private: cannot be accessed outside the class.
+
+### Getters and Setters
+these are created inside the class.
+* Getters: it is simply readOnly.
+* Setters: it is simply write only.
+
+**Code Snippit:**
+
+```
+private $locked; //must be private so that no one other than class can edit this.
+
+function getLocked(){
+    return $this->locked;
+}
+function setLocked($newVal){
+    $this->locked = $newVal;
+}
+```
+
+**Calling the getter And setter along with modifying the values.**
+```
+echo $book1->getLocked();
+$book2->setLocked("No");
+echo $book2->getLocked();
+```
+
+
+### Inheritance
+
+done using the keyword ```extends```
+So what basically it does is: copies the same properties of the other class in iteslf and adds some other functionalities to its own class. For example.
+
+```
+class age{
+    function young(){
+        echo "Young age ";
+    }
+    function elder(){
+        echo "Elder age";
+    }
+    function old(){
+        echo "Old age";
+    }
+} 
+
+//what i am doing is creating another class of NeerajAge which extends (meaning copies all the properties of age in this one)
+class NeerajAge extends age{
+    function calAge($currAge){
+        echo "Current age is: $currAge";
+    }
+}
+//inheritance  
+
+$age1 = new age;
+$age2 = new NeerajAge;
+echo "Calling age1 young() ";
+$age1->young();
+echo "<br>";
+echo "Calling age2 young()";
+$age2->young();
+echo "<br>";
+echo "Calling age2 calAge() ";
+$age2->calAge(21);
+echo "<br>";
+```
+
+**THE OUTPUT WILL BE SOMETHING LIKE THIS**
+```
+Calling age1 young() Young age
+Calling age2 young()Young age
+Calling age2 calAge() Current age is: 21
+```
+So, we can see that for age2 which is an instance of NeerajAge, young() was able to be called. And at the same time, calAge() was also called. This is all because of inheritance.
