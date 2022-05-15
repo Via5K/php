@@ -1,3 +1,8 @@
+# Resources
+* Web: https://www.php.net/manual/en/index.php
+* Youtube: https://www.youtube.com/watch?v=OK_JCtrrv-c
+* Online PHP Code Editor: https://www.w3schools.com/php/phptryit.asp?filename=tryphp_compiler
+* W3Schools: https://www.w3schools.com/php/default.asp
 # Instruction
 * You have to install PHP first. visit (https://windows.php.net/)
 * While installing keep a note where are you installing the PHP (for windows while extraction Note the directory where you are saving)
