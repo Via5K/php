@@ -36,6 +36,12 @@ Writes information inside echo in the HTML page.
 ?>
 ```
 
+```
+echo "Hello, there ". $name." How are you";
+```
+We can write variable and text at same line with .(dot) operator.
+
+
 ## Variable
 
 ```
@@ -664,3 +670,129 @@ Calling age2 young()Young age
 Calling age2 calAge() Current age is: 21
 ```
 So, we can see that for age2 which is an instance of NeerajAge, young() was able to be called. And at the same time, calAge() was also called. This is all because of inheritance.
+
+
+## Database connection With PHP
+To connect to a database we need work in 3 steps.
+1. Provide Credentials
+2. Create a connection
+3. Check if the connection is established nad after that terminate it.
+
+So, below php code shows simple implementation of the above 3 steps.
+
+Connection is created using : ```sqli_connect($domain,$username,$password);```
+and a fourth optional parameter can be passed i.e database name.
+
+
+```
+<?php
+    $domain = "localhost";
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    // creating a connection
+    $connection = mysqli_connect($domain,$username,$password);
+    if($connection){
+        echo "Connection Established";
+    }
+    else{
+        echo "Connection Failed";   
+    }
+?>
+```
+
+**Note:** When inserting use single quotes `' '`
+
+### SQL Query
+sql queries are like this: 
+
+```
+$q1 = "create database persons";
+$q2 = "use persons";
+$q3 = "create table information(name varchar(30), email varchar(30), age int)";
+$q4 = "insert into information values('$name', '$email', $age)";
+```
+
+So, here something to note is i have used '$name' and same for '$email'. This is because they were declared as varchar. 
+
+Another thing is, varchar is the datatype not varchar2.
+
+At the same time all the rules are followed similarly to the sql queries but with a minor difference in syntax.
+
+**Code Snippit**: Of Creating connection to database, Fetching data from form, Storing information in database, displaying data of teh database and closing the connection.
+
+```
+<?php
+	$domain = "localhost";
+	$username = "root";
+	$password = "";
+	// creating a connection
+	$connection = mysqli_connect($domain,$username,$password);
+	if(!$connection){ //if connection not established
+		exit("Connection failed");
+	}
+	//getting the data from the html file
+	$name = $_POST["personName"];
+	$email = $_POST["personEmail"];
+	$age = $_POST["personAge"];
+	
+	//SQL Queries
+	//creates a database named persons.
+	$q1 = "create database persons";
+	//use the database persons.
+	$q2 = "use persons";
+	//creates the structure of the table.
+	$q3 = "create table information(name varchar(30), email varchar(30), age int)";
+	//Inserting the data in the table.
+	$q4 = "insert into information values('$name', '$email', $age)";
+
+	//runs the query in the connection established and the query.
+	mysqli_query($connection,$q1);
+	mysqli_query($connection,$q2);
+	mysqli_query($connection,$q3);
+	mysqli_query($connection,$q4);
+	
+	//Displaying the data of the Database.
+	$q5 = "select * from information";
+	$res = mysqli_query($connection,$q5); //storing the data that we have got into the $res.
+	
+	//Checking if the number of rows fetched is greater than 0, then do-
+	if(mysqli_num_rows($res)>0){
+		//store the row no 1 in $row variable.
+		while($row = mysqli_fetch_assoc($res)) {
+			//we are displaying the data of the stored $row variable.
+			//$row['name'] means that from the $row variable, find the col with 'name' and print its value. Similarly in anothers also.
+			echo "Name: " . $row['name']. " Age: " . $row['age']. " Email: " . $row['email']. "<br>";
+		}
+	}//Otherwise, display no information.
+	else{
+		echo "No records <br>";
+	}
+	//closing the connection.
+	mysqli_close($connection);
+?>
+```
+
+
+
+## Cookies
+Stores the information in form of key:value pair known as cookie.
+A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.
+
+To create a cookie, we can do like this-
+```
+setcookie("key","value");
+```
+
+Generalised Syntax of setcookie include:
+```
+setcookie(name, value, expire, path, domain, secure, httponly); 
+```
+
+To check if the cookie is set or not?
+```
+if(isSet($_COOKIE['key'])){
+    echo "Welcome, ".$_COOKIE["key"];
+}else{
+    echo "Sorry!!";
+}
+```
