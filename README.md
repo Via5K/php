@@ -776,6 +776,10 @@ At the same time all the rules are followed similarly to the sql queries but wit
 
 ## Cookies
 Stores the information in form of key:value pair known as cookie.
+**NOTE** Cookie sends information through HTTP. 
+
+That means it embeeds the cookie in Header. So, one thing to note is that, Whenever you are trying to set the cookie, it should be done prior to the HTML. As we cannot modify the headers once they are send. 
+
 A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.
 
 To create a cookie, we can do like this-
@@ -796,3 +800,153 @@ if(isSet($_COOKIE['key'])){
     echo "Sorry!!";
 }
 ```
+
+
+**Code Snippit:** For Setting Cookie
+
+```
+//As set cookie should be called first than that of the HTML.
+<?php
+    setcookie("name","neeraj");
+?>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies</title>
+</head>
+<body>
+    <?php
+    if(isSet($_COOKIE['name'])){
+        echo "Welcome, ".$_COOKIE["name"];
+    }else{
+        echo "Sorry!! No cookie found";
+    }
+    ?>   
+</body>
+</html>
+```
+
+
+So, now if we want a cookie to expire in certain time. We can pass a third parameter in the setcookie.
+```
+setcookie('key','value',time()+60000);
+```
+So this will expire in 1 minute. and we pass the time as: time()+miliseconds.
+
+So, whenever we want to destroy a cookie we write -milisecond. This means that cookie should have been destroyed easrlier and so it deletes cookie instantly.
+
+**Code Snippit**
+<?php
+    setcookie("name","neeraj", time()-1);
+?> 
+
+## Session
+Saves the information inside the server. 
+
+While Cookies save the information in client side.
+
+A session ends when we close the browser.
+
+But a cookie has time limit. It can be 30, 20 or 1 day limit. i.e it will expire after certain days.
+
+### Session Start and Setting Session variable
+To start a session ```session_start()```
+And note, like cookies, this should be also started before the HTML. 
+After which we can set the session vairable that is key value.
+
+* This will create a session with key:value as username and password```$_SESSION['username']``` ```$_SESSION['password'] ```
+* Now, coming onto the setting of the session variable.
+
+1. $_SESSION['username'] = "neeraj";
+2. $_SESSION['password'] = "thisIsPassword;";
+   
+Now, as the session variables are set we can access them simply like cookies. i.e by ```$_SESSION['username'];``` etc.
+
+### To Destroy the session and remove all session variable.
+
+To remove all session variables, we use ```session_unset();``` Which removes all the session varibales.
+
+And, to destroy a session use, ```session_destroy()``` Which will destroy the session along with its data.
+
+```
+<?php
+    session_unset();
+    if(isSet($_SESSION['username'])){
+        echo "Session Alive";
+    }else{
+        echo "Session Killed";
+    }
+?>
+```
+
+
+### Code Snippit of Session CREATE, DESTROY
+
+*filename: session.php*
+
+```
+<?php
+//this will start the session
+session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session</title>
+</head>
+
+<body>
+    <form action="./session.php" method="POST">
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="text" name="password" placeholder="Password"><br>
+        <input type="submit"><br>
+    </form>
+
+    <?php 
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+
+        $_SESSION["username"] = $username;
+        $_SESSION["password"] = $password;
+
+        if(isSet($_SESSION['username'])){
+            echo "Session successfully set!!";
+            echo "<br>";
+            echo '
+            <form action="./sessionDestroy.php" method="POST">
+                <button type="submit">Destroy Session</button><br>
+            </form>
+            ';
+        }
+        else{
+            echo "Session <b>Not</b> set";
+        }
+    ?>
+</body>
+
+</html>
+```
+
+
+*filename: sessionDestroy.php*
+
+```
+<?php
+    session_unset();
+    if(isSet($_SESSION['username'])){
+        echo "Session Alive";
+    }else{
+        echo "Session Killed";
+    }
+?>
+```
+
+
